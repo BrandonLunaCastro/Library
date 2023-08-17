@@ -1,16 +1,52 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="assets/styles/styles.css">
+    <script src="https://kit.fontawesome.com/b94ace870d.js" crossorigin="anonymous"></script>
     <title>Library</title>
 </head>
 <body>
-    <main>
-        <p class="board"></p>
-    
-    </main>
-    <script src="assets/js/library.js"></script>
+   <header class="header">
+    <div class="logo">
+        <i class="fa-solid fa-book-open-reader"></i>
+        <span>OpenLibrary</span>
+    </div> 
+    <dialog id="main__modal" >
+       <form class="form" method="dialog" >
+            <legend>Book</legend>
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" placeholder=" ">
+            <label for="author">Author</label>
+            <input type="text" name="author" id="author" placeholder=" ">
+            <label for="pages">Pages</label>
+            <input type="number" name="pages" id="pages" placeholder=" ">
+            <label for="read">Read</label>
+            <input type="text" name="Read" id="Read" placeholder=" ">
+            <button  id="submit" name="submit" type="submit">Add</button>
+        </form>
+    </dialog>
+    <button id="add__book" name="add__book" type="button" >Add Book + </button>
+   </header>
+   <main>
+        <article class="cards">
+            <figure class="card">
+                <h3>Title : Cant hurt me</h3>
+                <p>by : David googins</p>
+                <p>pages : 300 </p>
+                <p>read? : Not read</p>
+                <button type="button" data-read="read" id="read">Read</button>
+                <button type="button" id="delete" >Delete</button>
+            </figure>
+        </article>
+        
+   </main>
+   <footer class="footer">
+    <p>Design by Brandon Luna 2023</p>
+    <a href="https://github.com/BrandonLunaCastro" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-2xl"></i></a>
+   </footer>
+   <script src="assets/js/library.js"></script> 
 </body>
 </html>
+

@@ -1,5 +1,123 @@
-.board{
-    width: 500px;
-    height: 150px;
-    border: 1px solid #fefe12;
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz@10..48&family=Montserrat&family=Pacifico&family=Poppins:wght@300&display=swap');
+:root{
+    font-size: 1.3rem;
+    color: #0d193d;
+    font-family: 'Montserrat', sans-serif;;
+    --header-bg-color : #38bdf8;
+    --main-bg-color: #f0f9ff;
+    --card-bg-color1 : #84d6ff;
+    --card-bg-color2 : #7dd3fc;
+    --button-color:#0891b2  ;
+   
+}
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-image: url(../img/pexels-stanislav-kondratiev-2908976.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.header{
+    height: 3rem;  
+    display: flex;
+    justify-content: space-between;
+    backdrop-filter: blur(0.2rem);
+    background: rgba(255,255,255,0.2);
+    -webkit-backdrop-filter: blur(0.2rem);
+    position: sticky;
+    top: 0;
+    z-index: 99;
+}
+
+.logo{
+    font-size: 32px;
+    margin: auto;
+    color: var(--logo-color);
+}
+
+#add__book{
+    margin: 10px auto;
+    width: 200px;
+    background-color: var(--button-color);
+    border-radius: 8px;
+    height: 40px;
+    border: none;
+    font-size: 1.2rem;
+    transition: all .5s ease;
+}
+#add__book:hover{
+    background-color: var(--sidebar-bg-color);
+    cursor: pointer;
+    transform: scale(1.1);
+}
+/* Dialog styles */
+
+#main__modal{
+    margin: auto auto;
+}
+#main__modal::backdrop{
+    background:rgba(193, 77, 120, 0.3);
+}
+
+.form{
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+
+}
+.form > button{
+   
+    width: 100px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    background-color: var(--sidebar-bg-color);
+    margin: 20px auto;
+}
+/*main styles*/
+
+.cards{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+    grid-template-rows: repeat(3,1fr);
+    padding: 2rem;
+}
+.card{
+    display: flex;
+    flex-direction: column;
+    border: none;
+    border-radius: 7px;
+    padding: 1rem;
+    width: 300px;
+    gap: 15px;
+    height: 300px;
+    background:linear-gradient(90deg,var(--card-bg-color1), var(--card-bg-color2) ) ; 
+    opacity: 0.9;
+    font-weight: 600;
+}
+.card > button {
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+}
+
+
+.footer{
+    backdrop-filter: blur(0.2rem);
+    background: rgba(255,255,255,0.2);
+    -webkit-backdrop-filter: blur(0.2rem);
+    height: 63px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+.footer > *:nth-child(1){
+    font-weight: bold;
 }
