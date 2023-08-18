@@ -2,15 +2,18 @@
 const btnAddBook = document.getElementById("add__book"),
       modal = document.getElementById("main__modal"),
       form = document.querySelector(".form"),
-      main = document.querySelector("main")
+      sectionCards = document.querySelector(".cards"),
+      btnDelete = document.querySelector(".delete"),
+      btnRead = document.querySelector(".read")
 
+/* Funcion que abre elcuadro de dialogo */
 const showDialog = () => {
     modal.showModal();
 }
 
 btnAddBook.addEventListener("click",showDialog)
-form.addEventListener("submit", e => {
-    console.log("se ejecuta")
+/* Tomamos los valores del formulario para instanciar el objeto */
+form.addEventListener("submit", e => {    
     const title = document.getElementById("title").value,
           author = document.getElementById("author").value,
           pages = document.getElementById("pages").value,
@@ -21,6 +24,8 @@ form.addEventListener("submit", e => {
           
           e.preventDefault();
 })
+
+/* Creamos nuestra matriz vacia donde se ingresaran los libros y construimos la funcion constructora */
 
 let library = [];
 
@@ -34,21 +39,58 @@ function Book(title,author,pages,read){
     };
 };
 
+/* Creamos el objeto lo agregamos a la matriz  */
 function addBookToLibrary(title,author,pages,read){
     const newBook = new Book(title,author,pages,read)
-    console.log(newBook.info())
+
     library.push(newBook)
+
+    let index = library.indexOf(newBook)
+
+    showLibrary(newBook,index)
 };
 
-function showLibrary(){
-    library.forEach((book) => {
-        addTarget(book)
-        
-    })
+/* Se crea el elemento HTML y se inserta con la informacion*/
+function showLibrary(book,index){
+    console.log(book)
+        let figure = document.createElement("figure"),
+            h3 = document.createElement("h3"),
+            p1 = document.createElement("p"),
+            p2 = document.createElement("p"),
+            p3 = document.createElement("p"),
+            button1 = document.createElement("button"),
+            button2 = document.createElement("button"),
+            fragment = document.createDocumentFragment()
+
+            figure.classList.add("card")
+            figure.setAttribute("data-index",index)
+
+            button1.setAttribute("data-read","read")
+            button1.setAttribute("id","read")
+            button1.classList.add("read")
+            button1.innerText = "Read"
+
+            button2.setAttribute("id","delete")
+            button2.classList.add("delete")
+            button2.innerText = "Delete"
+
+            h3.innerText = `Title : ${book.title}`
+            p1.innerText = `by : ${book.author}`
+            p2.innerText = `pages : ${book.pages}`
+            p3.innerText = `read? : ${book.read}`
+
+            figure.appendChild(h3)
+            figure.appendChild(p1)
+            figure.appendChild(p2)
+            figure.appendChild(p3)
+            figure.appendChild(button1)
+            figure.appendChild(button2)
+
+            fragment.appendChild(figure)
+            sectionCards.appendChild(fragment)
 };
 
-const addTarget = (book) => {
-    console.log(book.bind(book))
+
    // console.log(book.title,book.author,book.pages,book.read)
     /* 
     main.appendChild = `
@@ -60,7 +102,7 @@ const addTarget = (book) => {
       <button type="button" data-read="read" id="read">Read</button>
       <button type="button" id="delete" >Delete</button>
     </figure>` */
-}
+
 
 /*
             <figure class="card">
@@ -73,4 +115,4 @@ const addTarget = (book) => {
             </figure>
 */
 
-window.addEventListener('DOMContentLoaded',showLibrary) 
+//window.addEventListener('DOMContentLoaded',showLibrary) 
