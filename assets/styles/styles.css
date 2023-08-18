@@ -104,6 +104,7 @@ body{
     display: grid;
     grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
     grid-template-rows: repeat(3,1fr);
+    gap: 30 px;
     padding: 2rem;
 }
 .card{
@@ -129,8 +130,20 @@ body{
     background:#86efac ;
     transition: all 0.5s ease;
 }
-.delete{
+
+.notRead{
     background: #fb7185;
+    transition: all 0.5s ease;
+}
+
+.notRead:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.delete{
+    background:#0d193d;
+    color: #f0f9ff;
     transition: all 0.5s ease;
 }
 
