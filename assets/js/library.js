@@ -2,10 +2,9 @@
 const btnAddBook = document.getElementById("add__book"),
       modal = document.getElementById("main__modal"),
       form = document.querySelector(".form"),
-      sectionCards = document.querySelector(".cards"),
-      btnDelete = document.querySelector(".delete"),
-      btnRead = document.querySelector(".read")
-
+      sectionCards = document.querySelector(".cards");
+     
+    
 /* Funcion que abre elcuadro de dialogo */
 const showDialog = () => {
     modal.showModal();
@@ -17,9 +16,9 @@ form.addEventListener("submit", e => {
     const title = document.getElementById("title").value,
           author = document.getElementById("author").value,
           pages = document.getElementById("pages").value,
-          read = document.getElementById("Read").value     
+          read = document.getElementById("Read").value;     
           
-          addBookToLibrary(title,author,pages,read)
+          addBookToLibrary(title,author,pages,read);
           modal.close();
           
           e.preventDefault();
@@ -30,10 +29,10 @@ form.addEventListener("submit", e => {
 let library = [];
 
 function Book(title,author,pages,read){
-    this.title = title,
-    this.author = author,
-    this.pages = pages,
-    this.read = read,
+    this.title = title ? title : "Can't Hurt Me" ,
+    this.author = author ? author : "David googins" ,
+    this.pages = pages ? pages : 200 ,
+    this.read = read ? read : "not read",
     this.info = function(){
         return `${this.title} by ${this.author}, ${this.pages} pages , is read : ${this.read}`;
     };
@@ -63,15 +62,17 @@ function showLibrary(book,index){
             fragment = document.createDocumentFragment()
 
             figure.classList.add("card")
-            figure.setAttribute("data-index",index)
-
+            
             button1.setAttribute("data-read","read")
             button1.setAttribute("id","read")
             button1.classList.add("read")
+            button1.classList.add("btn__card")
             button1.innerText = "Read"
 
             button2.setAttribute("id","delete")
             button2.classList.add("delete")
+            button2.classList.add("btn__card")
+            button2.setAttribute("data-index",index)
             button2.innerText = "Delete"
 
             h3.innerText = `Title : ${book.title}`
@@ -87,32 +88,39 @@ function showLibrary(book,index){
             figure.appendChild(button2)
 
             fragment.appendChild(figure)
+
             sectionCards.appendChild(fragment)
+
+            let cardsNode = document.querySelectorAll('.card')
+            detectCards(cardsNode)
 };
 
+    const changeStateBtn = (e) => {
+        let card = e.currentTarget
+        
+         if(e.target.matches("#delete")){
+            let libraryIndex = e.target.dataset.index;
+            console.log(card)
+            console.log(libraryIndex)
+            sectionCards.removeChild(card)
+           
+        }
 
-   // console.log(book.title,book.author,book.pages,book.read)
-    /* 
-    main.appendChild = `
-    <figure class="card">
-      <h3>Title : Cant hurt me</h3>
-      <p>by : David googins</p>
-      <p>pages : 300 </p>
-      <p>read? : Not read</p>
-      <button type="button" data-read="read" id="read">Read</button>
-      <button type="button" id="delete" >Delete</button>
-    </figure>` */
+        if(e.target.matches("#read")){
+            console.log('presionaste el btn read')
+        } 
 
+    }
 
-/*
-            <figure class="card">
-                <h3>Title : Cant hurt me</h3>
-                <p>by : David googins</p>
-                <p>pages : 300 </p>
-                <p>read? : Not read</p>
-                <button type="button" data-read="read" id="read">Read</button>
-                <button type="button" id="delete" >Delete</button>
-            </figure>
-*/
+    function detectCards(cardsNode){
+        console.log(cardsNode)
+        cardsNode.forEach(card => {
+          card.addEventListener("click",changeStateBtn)
+        
+        });
+    }
+    
 
-//window.addEventListener('DOMContentLoaded',showLibrary) 
+window.addEventListener('DOMContentLoaded', e => {
+    addBookToLibrary();
+}) 
