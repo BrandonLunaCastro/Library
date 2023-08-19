@@ -43,13 +43,29 @@ function Book(title,author,pages,read){
     };
 };
 
+const detectSimilarObj = (obj1,obj2) => {
+    let obj1Values = Object.values(obj1)
+    return  Object.values(obj2).every((v,i) => v === obj1Values[i])
+} 
+
+
 /* Creamos el objeto lo agregamos a la matriz  */
 function addBookToLibrary(title,author,pages,read){
     const newBook = new Book(title,author,pages,read);
+    
+    //detectSimilarObj(library,newBook)
+    
+    library.map((book) => {
+        if(detectSimilarObj(book,newBook) == true){
+            alert("ese objeto ya se agrego")
+        }else{
+            library.push(newBook)
+        }
 
-    library.push(newBook);
+    })
+    //library.push(newBook);
+
     let book = library.at(-1)
-   
     showLibrary(book);
 };
 
@@ -108,20 +124,19 @@ function showLibrary(book){
     
     const changeStateBtn = (state,element) => {
         if(state === "read"){ 
-            element.classList.remove("notRead")
-            element.classList.add("read")
-            element.innerText = "Read"
+            element.classList.remove("notRead");
+            element.classList.add("read");
+            element.innerText = "Read";
+            element.previousSibling.innerText = "read? : read"
         } 
 
         if(state == 'not read'){
-            element.classList.remove("read")
-            element.classList.add("notRead") 
-            element.innerText = "Not read"
-       
+            element.classList.remove("read");
+            element.classList.add("notRead");
+            element.innerText = "Not read";
+            element.previousSibling.innerText = "read? : not red"
         }
-      }
- 
-     
+    }
 
     function getIndex(element){
         let index = element.dataset.index
@@ -149,7 +164,7 @@ function showLibrary(book){
             changeStateBtn(state,e.target);
         }
 
-        //funcionalidad para rl boton delete
+        //funcionalidad para el boton delete
         if(e.target.matches(".delete")){
            
             e.target.parentElement.remove();//borramos la targeta
@@ -169,9 +184,9 @@ function showLibrary(book){
         btns.forEach((btn)=>btn.addEventListener("click",addFunctionality))
     };
 
-    window.addEventListener("DOMContentLoaded",e => {
+  /*   window.addEventListener("DOMContentLoaded",e => {
         addBookToLibrary()
        
-    });
+    }); */
 
 
