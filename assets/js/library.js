@@ -13,17 +13,21 @@ const showDialog = () => {
 btnAddBook.addEventListener("click",showDialog);
 /* Tomamos los valores del formulario para instanciar el objeto */
 form.addEventListener("submit", e => {    
-    const title = document.getElementById("title").value,
+    let title = document.getElementById("title").value,
           author = document.getElementById("author").value,
           pages = document.getElementById("pages").value,
-          read = document.getElementById("Read").value;     
+          read = document.getElementById("Read").checked;     
           
-          addBookToLibrary(title,author,pages,read);
+          read = read == true ? "read" : "not read";
 
+
+          addBookToLibrary(title,author,pages,read);
           modal.close();
           
+          e.target.reset()
           e.preventDefault();
 })
+
 
 /* Creamos nuestra matriz vacia donde se ingresaran los libros y construimos la funcion constructora */
 
@@ -47,17 +51,13 @@ function addBookToLibrary(title,author,pages,read){
     let book = library.at(-1)
    
     showLibrary(book);
-
 };
 
-/* Se crea el elemento HTML y se inserta con la informacion*/
-function showLibrary(book){
- 
-       
-        console.log(book)
-        let index = library.indexOf(book);
-    
 
+/* Se crea el elemento HTML y se inserta con la informacion*/
+function showLibrary(book){    
+        let index = library.indexOf(book);
+       
         let figure = document.createElement("figure"),
         h3 = document.createElement("h3"),
         p1 = document.createElement("p"),
@@ -68,18 +68,18 @@ function showLibrary(book){
         fragment = document.createDocumentFragment();
 
         figure.classList.add("card");
+ 
 
         if(book.read === "read" ){
-            button1.setAttribute("data-read","read") ;
-            button1.setAttribute("id","read");
             button1.classList.add("read");
             button1.innerText = "Read";
         }else{
-            button1.setAttribute("data-read","notread"); 
-            button1.setAttribute("id","not-read");
             button1.classList.add("notRead");
             button1.innerText = "Not read";
-        }
+        } 
+        
+        
+        button1.setAttribute("data-read","read?"); 
         button1.classList.add("btn__card");
        
         button2.setAttribute("id","delete");
@@ -102,90 +102,76 @@ function showLibrary(book){
 
         fragment.appendChild(figure);
 
-        sectionCards.appendChild(fragment);
-        let cardsNode = document.querySelectorAll('.card')
-        detectCards(cardsNode,book)
+        sectionCards.appendChild(fragment); 
+        detectBtns()    
 };
-
-    const changeStateBtn = (e,book) => {
-     let card = e.target.parentElement
-     let btn;
- 
-     if(e.target.matches("#delete")){
-        let libraryIndex = e.target.dataset.index;
-        library.splice(libraryIndex,1);
-        card.remove()
-       
-     }
-
-    if(e.target.matches("#read")){
-        btn = e.target;
-        console.log("read")
-        console.log(btn)
-        btn.setAttribute("id","not-read");
-        btn.classList.remove("read");
-        btn.classList.add("notRead");
-        btn.innerText = "Not read"; 
-
-        book.read = "not read";
-    //    console.log(btn);
-
-    } 
-    if(e.target.matches("#not-read")){
-        btn = e.target;
-        console.log("not read")
-        btn.setAttribute("id","read");
-        btn.classList.remove("notRead");
-        btn.classList.add("read");
-        btn.innerText = "Read";
-
-        book.read = "read";
-
-      //  console.log(btn);
-
-    } 
-
-}
-
-     function detectCards(cardsNode,book){
-         
-       cardsNode.forEach(card => {
-          card.addEventListener("click",e => {
-            console.log("se hace click")
-            changeStateBtn(e,book);
-          })
-        });  
-    }
- 
- 
-   
-    window.addEventListener("DOMContentLoaded",e => {
-        addBookToLibrary()
-    })
-
-
-/*     const changeStateBtn = (e) => {
-        let card = e.currentTarget
-        
-         if(e.target.matches("#delete")){
-            let libraryIndex = e.target.dataset.index;
-            console.log(card)
-            console.log(libraryIndex)
-            sectionCards.removeChild(card)
-           
-        }
-
-        if(e.target.matches("#read")){
-            console.log('presionaste el btn read')
+    
+    const changeStateBtn = (state,element) => {
+        if(state === "read"){ 
+            element.classList.remove("notRead")
+            element.classList.add("read")
+            element.innerText = "Read"
         } 
 
+        if(state == 'not read'){
+            element.classList.remove("read")
+            element.classList.add("notRead") 
+            element.innerText = "Not read"
+       
+        }
+      }
+ 
+     
+
+    function getIndex(element){
+        let index = element.dataset.index
+        return index
+    } 
+
+    const addFunctionality = (e) => {
+        let indice,
+            state,
+            book
+
+        //funcionalidad para el boton de read o not read
+        if(e.target.dataset.read){
+            indice = getIndex(e.target.nextSibling);
+            book = library[indice];
+            
+            //identifica el estado actual del libro 'read' o 'not read'
+            let actualState = e.target.className.includes("notRead") ? "not read" : "read"
+           
+            // modifica en el prototype alternando segun el estado actual, es decir si esta en no leido lo
+            //cambia a leido y viceversa
+            book.read = actualState === "not read" ? "read" : "not read"
+            state = library[indice].read;
+            
+            changeStateBtn(state,e.target);
+        }
+
+        //funcionalidad para rl boton delete
+        if(e.target.matches(".delete")){
+           
+            e.target.parentElement.remove();//borramos la targeta
+            
+            let index = getIndex(e.target);
+
+            library.splice(index,1)//borramos el libro de la matriz 
+
+
+        }
+
+
     }
 
-    function detectCards(cardsNode){
-        console.log(cardsNode)
-        cardsNode.forEach(card => {
-          card.addEventListener("click",changeStateBtn)
-        
-        });
-    }
-      */
+    const detectBtns = () => {
+        let btns = document.querySelectorAll(".btn__card")
+        btns.forEach((btn)=>btn.addEventListener("click",addFunctionality))
+    };
+
+    window.addEventListener("DOMContentLoaded",e => {
+        addBookToLibrary()
+       
+    });
+
+
