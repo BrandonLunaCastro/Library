@@ -19,7 +19,9 @@ const detectRepeatBooks = (arr,title,author) => {
 }
 
 /* Tomamos los valores del formulario para instanciar el objeto */
-form.addEventListener("submit", e => {    
+form.addEventListener("submit", e => {  
+    e.preventDefault(); 
+
     let title = document.getElementById("title").value,
           author = document.getElementById("author").value,
           pages = document.getElementById("pages").value,
@@ -27,18 +29,21 @@ form.addEventListener("submit", e => {
           read = read == true ? "read" : "not read";
 
 
-          if(library.length == 0){
-            addBookToLibrary(title,author,pages,read);
-          }else{
-            detectRepeatBooks(library,title,author) 
-             ? addBookToLibrary(title,author,pages,read)
-             : alert("este libro ya se encuentra en la biblioteca")
-            
-          }
-       
-          modal.close();   
-          e.target.reset()
-          e.preventDefault();
+           if(library.length == 0){
+                addBookToLibrary(title,author,pages,read);
+                modal.close();  
+           }else{
+             if(detectRepeatBooks(library,title,author)){
+                addBookToLibrary(title,author,pages,read)
+                document.getElementById("title").classList.remove("error")
+                document.querySelector("span").classList.remove("warning")
+                modal.close();  
+             }else{
+                document.getElementById("title").classList.add("error")
+                document.querySelector("span").classList.add("warning")   
+             }
+            }
+            e.target.reset();  
 })
 
 

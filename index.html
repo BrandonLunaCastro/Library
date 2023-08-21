@@ -11,7 +11,7 @@
    <header class="header">
     <div class="logo">
         <i class="fa-solid fa-book-open-reader"></i>
-        <span>OpenLibrary</span>
+        <h3>OpenLibrary</span>
     </div> 
     <dialog id="main__modal" >
        <form class="form" method="dialog" >
@@ -20,11 +20,13 @@
             <ul>
                 <li>
                     <input type="text" name="title" id="title" placeholder=" " required>
-                    <label  class="inputLabel" for="title"> Title</label>
+                    <label  class="inputLabel title__label" for="title"> Title</label>
+                    <span data-error="This book have already exist in to library"></span>
                 </li>
                 <li>
                     <input type="text" name="author" id="author" placeholder=" " required>
                     <label  class="inputLabel" for="author" >Author</label>
+                   
                 </li>
                 <li>
                     <input type="number" name="pages" id="pages" placeholder=" " required>
