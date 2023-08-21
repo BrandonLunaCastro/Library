@@ -19,18 +19,18 @@
 
             <ul>
                 <li>
-                    <input type="text" name="title" id="title" placeholder=" ">
+                    <input type="text" name="title" id="title" placeholder=" " required>
                     <label  class="inputLabel" for="title"> Title</label>
                 </li>
                 <li>
-                    <input type="text" name="author" id="author" placeholder=" ">
+                    <input type="text" name="author" id="author" placeholder=" " required>
                     <label  class="inputLabel" for="author" >Author</label>
                 </li>
                 <li>
-                    <input type="number" name="pages" id="pages" placeholder=" ">
+                    <input type="number" name="pages" id="pages" placeholder=" " required>
                     <label  class="inputLabel" for="pages"> Pages</label>                
                 </li>
-                <li>
+                <li class="input__read">
                     <label for="read">Have you read it?</label>
                     <input type="checkbox" name="Read?" id="Read">
                 </li>
@@ -41,7 +41,7 @@
     <button id="add__book" name="add__book" type="button" >Add Book + </button>
    </header>
    <main>
-        <article class="cards"></article>
+         <article class="cards"></article>
    </main>
    <footer class="footer">
     <p>Design by Brandon Luna 2023</p>

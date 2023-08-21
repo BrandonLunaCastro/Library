@@ -9,21 +9,34 @@ const btnAddBook = document.getElementById("add__book"),
 const showDialog = () => {
     modal.showModal();
 }
-
 btnAddBook.addEventListener("click",showDialog);
+
+/* Revisamos mediante filter si el libro que vamos a incluir se encuentra en la biblioteca */
+const detectRepeatBooks = (arr,title,author) => {
+    let response = arr.filter(el => el.title === title && el.author == author)
+    return response.length === 0 ? true : false ; 
+
+}
+
 /* Tomamos los valores del formulario para instanciar el objeto */
 form.addEventListener("submit", e => {    
     let title = document.getElementById("title").value,
           author = document.getElementById("author").value,
           pages = document.getElementById("pages").value,
           read = document.getElementById("Read").checked;     
-          
           read = read == true ? "read" : "not read";
 
 
-          addBookToLibrary(title,author,pages,read);
-          modal.close();
-          
+          if(library.length == 0){
+            addBookToLibrary(title,author,pages,read);
+          }else{
+            detectRepeatBooks(library,title,author) 
+             ? addBookToLibrary(title,author,pages,read)
+             : alert("este libro ya se encuentra en la biblioteca")
+            
+          }
+       
+          modal.close();   
           e.target.reset()
           e.preventDefault();
 })
@@ -34,35 +47,20 @@ form.addEventListener("submit", e => {
 let library = [];
 
 function Book(title,author,pages,read){
-    this.title = title ? title : "Can't Hurt Me" ,
-    this.author = author ? author : "David googins" ,
-    this.pages = pages ?pages : 300 ,
-    this.read = read ? read : "not read",
+    this.title = title,
+    this.author = author,
+    this.pages = pages,
+    this.read = read,
     this.info = function(){
         return `${this.title} by ${this.author}, ${this.pages} pages , is read : ${this.read}`;
     };
 };
-
-const detectSimilarObj = (obj1,obj2) => {
-    let obj1Values = Object.values(obj1)
-    return  Object.values(obj2).every((v,i) => v === obj1Values[i])
-} 
 
 
 /* Creamos el objeto lo agregamos a la matriz  */
 function addBookToLibrary(title,author,pages,read){
     const newBook = new Book(title,author,pages,read);
     
-    //detectSimilarObj(library,newBook)
-    
-  /*   library.map((book) => {
-        if(detectSimilarObj(book,newBook) == true){
-            alert("ese objeto ya se agrego")
-        }else{
-            library.push(newBook)
-        }
-
-    }) */
     library.push(newBook);
 
     let book = library.at(-1)
@@ -173,10 +171,7 @@ function showLibrary(book){
 
             library.splice(index,1)//borramos el libro de la matriz 
 
-
         }
-
-
     }
 
     const detectBtns = () => {
@@ -184,9 +179,4 @@ function showLibrary(book){
         btns.forEach((btn)=>btn.addEventListener("click",addFunctionality))
     };
 
-  /*   window.addEventListener("DOMContentLoaded",e => {
-        addBookToLibrary()
-       
-    }); */
-
-
+  
