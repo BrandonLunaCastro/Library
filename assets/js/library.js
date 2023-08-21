@@ -55,15 +55,15 @@ function addBookToLibrary(title,author,pages,read){
     
     //detectSimilarObj(library,newBook)
     
-    library.map((book) => {
+  /*   library.map((book) => {
         if(detectSimilarObj(book,newBook) == true){
             alert("ese objeto ya se agrego")
         }else{
             library.push(newBook)
         }
 
-    })
-    //library.push(newBook);
+    }) */
+    library.push(newBook);
 
     let book = library.at(-1)
     showLibrary(book);
