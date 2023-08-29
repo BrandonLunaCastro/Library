@@ -47,19 +47,23 @@ form.addEventListener("submit", e => {
 })
 
 
-/* Creamos nuestra matriz vacia donde se ingresaran los libros y construimos la funcion constructora */
+/* Creamos nuestra matriz vacia donde se ingresaran los libros */
 
 let library = [];
 
-function Book(title,author,pages,read){
-    this.title = title,
-    this.author = author,
-    this.pages = pages,
-    this.read = read,
-    this.info = function(){
+//reemplazamos nuestra funcion constructora por la sintaxis de clases 
+class Book{
+    constructor(title,author,pages,read){
+        this.title = title
+        this.author = author
+        this.pages = pages
+        this.read = read
+    }
+    info(){
         return `${this.title} by ${this.author}, ${this.pages} pages , is read : ${this.read}`;
-    };
-};
+    }
+
+}
 
 
 /* Creamos el objeto lo agregamos a la matriz  */
