@@ -16,20 +16,19 @@
     <dialog id="main__modal" >
        <form class="form" method="dialog" >
            <legend>Book</legend>
-
             <ul>
                 <li>
-                    <input type="text" name="title" id="title" placeholder=" " required>
+                    <input type="text" name="title" id="title" placeholder=" " minlength="4" maxlength="80" required>
                     <label  class="inputLabel title__label" for="title"> Title</label>
                     <span data-error="This book have already exist in to library"></span>
                 </li>
                 <li>
-                    <input type="text" name="author" id="author" placeholder=" " required>
+                    <input type="text" name="author" id="author" placeholder=" " minlength="4" maxlength="40" required>
                     <label  class="inputLabel" for="author" >Author</label>
                    
                 </li>
                 <li>
-                    <input type="number" name="pages" id="pages" placeholder=" " required>
+                    <input type="number" name="pages" id="pages" placeholder=" " min="30" max="2000" required>
                     <label  class="inputLabel" for="pages"> Pages</label>                
                 </li>
                 <li class="input__read">
@@ -49,7 +48,7 @@
     <p>Design by Brandon Luna 2023</p>
     <a href="https://github.com/BrandonLunaCastro" rel="noopener" target="_blank"><i class="fa-brands fa-github fa-2xl"></i></a>
    </footer>
-   <script src="assets/js/library.js" type="module"></script> 
+   <script src="assets/js/library.js"></script> 
 </body>
 </html>
 

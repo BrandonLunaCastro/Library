@@ -8,6 +8,8 @@
   --main-bg-color: #a5f3fc;
   --button-color: #0891b2;
   --dialog-bg-color: #ecfeff;
+  --invalid-color: #aa000a;
+  --valid-color:#00bb00 ;
 }
 
 * {
@@ -165,7 +167,6 @@ main {
 }
 .cards {
   display: grid;
-
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   grid-template-rows: repeat(3, 1fr);
   gap: 40px;
@@ -180,8 +181,11 @@ main {
   padding: 1rem;
   width: 300px;
   gap: 25px;
-  height: 350px;
-  background: var(--dialog-bg-color);
+  height: 400px;
+  background: linear-gradient(rgba(255, 255, 255, 0.4) ,rgba(255, 255, 255, 0.4)),url("../img/edited.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position:top;
   color: var(--color1);
   font-weight: 600;
   transition: transform 0.3s;
@@ -252,8 +256,29 @@ main {
   content: attr(data-error);
   color: red;
   font-size: 0.6rem;
-  position: absolute;
+  position: absolute; 
   width: 250px;
   bottom: -19px;
   left: 0;
+}
+
+/* form validations */
+
+#title:invalid{
+    border-bottom: 2px solid  var(--invalid-color);
+}
+#title:valid{
+    border-bottom: 2px solid var(--valid-color);
+}
+#author:invalid{
+    border-bottom: 2px solid  var(--invalid-color);
+}
+#author:valid{
+    border-bottom: 2px solid var(--valid-color);
+}
+#pages:out-of-range, #pages:invalid{
+    border-bottom: 2px solid  var(--invalid-color);
+}
+#pages:valid{
+    border-bottom: 2px solid var(--valid-color);
 }
